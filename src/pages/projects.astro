@@ -1,0 +1,101 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+const projects = [
+  {
+    title: "NeuralNexus",
+    year: 2024,
+    description:
+      "A lightweight browser-based neural network visualizer built with WebGL. Designed for educational purposes to demonstrate backpropagation in real-time.",
+    tags: ["TypeScript", "WebGL", "Rust"],
+    href: "#",
+  },
+  {
+    title: "Zenith Documentation",
+    year: 2023,
+    description:
+      "Redesigning the technical documentation for the Zenith API ecosystem. Focused on information density, monospaced readability, and mobile-first utility.",
+    tags: ["Markdown", "Astro", "MDX"],
+    href: "#",
+  },
+  {
+    title: "MonoSpace.css",
+    year: 2023,
+    description:
+      "An opinionated CSS framework designed specifically for technical blogs and documentation sites. No shadows, no gradients, just structure.",
+    tags: ["CSS3", "PostCSS"],
+    href: "#",
+  },
+  {
+    title: "Kite-Runner Engine",
+    year: 2022,
+    description:
+      "A 2D game engine optimized for low-spec hardware, written in pure C. Focuses on deterministic physics and minimalist asset pipelines.",
+    tags: ["C", "SDL2", "Vulkan"],
+    href: "#",
+  },
+  {
+    title: "Ophelia OS",
+    year: 2021,
+    description:
+      "An experimental toy operating system kernel for x86_64 architectures. Implements memory management, preemptive multitasking, and a custom shell.",
+    tags: ["x86 Assembly", "C++"],
+    href: "#",
+  },
+];
+---
+
+<Layout
+  title="Projects — María Solano"
+  description="Colección de experimentos técnicos, proyectos de documentación y contribuciones open-source de María Solano."
+  activeNav="projects"
+>
+  <main class="max-w-[720px] mx-auto px-margin-page py-stack-lg min-h-[calc(100vh-200px)]">
+
+    <!-- ── Page Title ─────────────────────────────── -->
+    <section class="mb-stack-lg">
+      <h1 class="text-headline-lg mb-stack-sm">Projects</h1>
+      <p class="text-body-lg text-text-muted">
+        A collection of technical experiments, documentation projects, and open-source contributions.
+      </p>
+    </section>
+
+    <!-- ── Projects List ──────────────────────────── -->
+    <div class="space-y-12">
+      {projects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          year={project.year}
+          description={project.description}
+          tags={project.tags}
+          href={project.href}
+        />
+      ))}
+    </div>
+
+    <!-- ── Visual Log ─────────────────────────────── -->
+    <section class="mt-24 pt-12 border-t border-border-low flex flex-col gap-8">
+      <h2 class="text-headline-md">Visual Log</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+        <div class="relative aspect-video bg-surface-container overflow-hidden group rounded-lg">
+          <div class="w-full h-full flex items-center justify-center bg-surface-container-high group-hover:bg-surface-container transition-colors duration-500">
+            <div class="text-center p-4">
+              <span class="material-symbols-outlined text-[48px] text-text-muted group-hover:text-secondary transition-colors duration-500">monitor</span>
+              <p class="text-code-snippet text-text-muted mt-2">workspace_01.png</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative aspect-video bg-surface-container overflow-hidden group rounded-lg">
+          <div class="w-full h-full flex items-center justify-center bg-surface-container-high group-hover:bg-surface-container transition-colors duration-500">
+            <div class="text-center p-4">
+              <span class="material-symbols-outlined text-[48px] text-text-muted group-hover:text-secondary transition-colors duration-500">architecture</span>
+              <p class="text-code-snippet text-text-muted mt-2">blueprint_02.png</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>

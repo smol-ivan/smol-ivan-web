@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  href?: string;
+}
+
+const { title, date, href = "#" } = Astro.props;
+---
+
+<a href={href} class="post-item group flex flex-col md:flex-row md:items-baseline justify-between py-2 transition-all">
+  <div class="flex items-baseline gap-3">
+    <span class="post-arrow text-text-muted transition-transform duration-200 select-none">→</span>
+    <span class="text-headline-md text-primary group-hover:text-secondary transition-colors duration-200">
+      {title}
+    </span>
+  </div>
+  <span class="text-code-snippet text-text-muted whitespace-nowrap mt-1 md:mt-0">{date}</span>
+</a>

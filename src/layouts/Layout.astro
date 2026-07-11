@@ -1,0 +1,203 @@
+---
+import "../styles/global.css";
+
+interface Props {
+    title: string;
+    description?: string;
+    activeNav?: "about" | "projects" | "posts";
+}
+
+const {
+    title,
+    description = "Ivan's site - Software Engineer",
+    activeNav,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="us">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="generator" content={Astro.generator} />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+            rel="stylesheet"
+        />
+
+        <title>{title}</title>
+
+        <!-- Inline theme init to prevent FOUC -->
+        <script is:inline>
+            (function () {
+                const stored = localStorage.getItem("theme");
+                const prefersDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)",
+                ).matches;
+                if (stored === "dark" || (!stored && prefersDark)) {
+                    document.documentElement.classList.add("dark");
+                }
+            })();
+        </script>
+    </head>
+    <body
+        class="bg-background text-on-background min-h-screen flex flex-col transition-colors duration-200 font-mono-system"
+    >
+        <!-- ── Header / Nav ────────────────────────────── -->
+        <header
+            class="w-full border-b border-border-low sticky top-0 bg-background/90 backdrop-blur-sm z-50 transition-colors duration-200"
+        >
+            <div
+                class="max-w-[720px] mx-auto flex justify-between items-center py-stack-md px-margin-page"
+            >
+                <!-- Left: theme toggle + home -->
+                <div class="flex items-center gap-4">
+                    <!--  TODO: Fix problem w icons for the toggle theme-->
+                    <button
+                        id="theme-toggle"
+                        aria-label="Cambiar tema"
+                        class="hidden flex items-center p-1 bg-surface-container rounded-full cursor-pointer active:opacity-70 transition-all"
+                    >
+                        <div class="w-16 h-6 flex items-center relative px-1">
+                            <div
+                                id="toggle-thumb"
+                                class="w-4 h-4 bg-primary rounded-full transition-transform duration-300 translate-x-0"
+                            >
+                            </div>
+                            <span
+                                class="material-symbols-outlined absolute left-1.5 text-[12px] select-none"
+                                >light_mode</span
+                            >
+                            <span
+                                class="material-symbols-outlined absolute right-1.5 text-[12px] select-none opacity-0"
+                                id="dark-icon">dark_mode</span
+                            >
+                        </div>
+                    </button>
+
+                    <a
+                        href="/"
+                        class="text-headline-md font-bold text-primary hover:text-secondary transition-colors duration-200"
+                    >
+                        Home
+                    </a>
+                </div>
+
+                <!-- Right: nav links -->
+                <nav
+                    class="flex items-center gap-6 text-body-lg"
+                    aria-label="Navegación principal"
+                >
+                    <a
+                        href="/about"
+                        class={`text-text-muted hover:text-secondary transition-colors duration-200 ${activeNav === "about" ? "nav-link-active" : ""}`}
+                    >
+                        About
+                    </a>
+                    <a
+                        href="/projects"
+                        class={`text-text-muted hover:text-secondary transition-colors duration-200 ${activeNav === "projects" ? "nav-link-active" : ""}`}
+                    >
+                        Projects
+                    </a>
+                    <a
+                        href="/posts"
+                        class={`text-text-muted hover:text-secondary transition-colors duration-200 ${activeNav === "posts" ? "nav-link-active" : ""}`}
+                    >
+                        Posts
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- ── Page Content ────────────────────────────── -->
+        <slot />
+
+        <!-- ── Footer ─────────────────────────────────── -->
+        <footer
+            class="w-full border-t border-border-low bg-background transition-colors duration-200"
+        >
+            <div
+                class="max-w-[720px] mx-auto flex flex-col items-center gap-stack-sm py-stack-lg px-margin-page"
+            >
+                <div
+                    class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-label-caps text-text-muted"
+                >
+                    <a
+                        href="https://github.com"
+                        target="_blank"
+                        rel="noopener"
+                        class="hover:text-secondary transition-colors duration-200"
+                        >GitHub</a
+                    >
+                    <a
+                        href="https://linkedin.com"
+                        target="_blank"
+                        rel="noopener"
+                        class="hover:text-secondary transition-colors duration-200"
+                        >LinkedIn</a
+                    >
+                    <a
+                        href="https://x.com"
+                        target="_blank"
+                        rel="noopener"
+                        class="hover:text-secondary transition-colors duration-200"
+                        >Twitter / X</a
+                    >
+                    <a
+                        href="mailto:maria@example.com"
+                        class="hover:text-secondary transition-colors duration-200"
+                        >Email</a
+                    >
+                </div>
+                <p class="text-label-caps text-text-muted opacity-60">
+                    © 2025 María Solano · Powered by <a
+                        href="https://astro.build"
+                        class="underline hover:text-secondary transition-colors"
+                        >Astro</a
+                    >
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
+
+<script>
+    // ── Theme Toggle ─────────────────────────────────────
+    const btn = document.getElementById("theme-toggle")!;
+    const thumb = document.getElementById("toggle-thumb")!;
+    const darkIcon = document.getElementById("dark-icon")!;
+    const html = document.documentElement;
+
+    function applyTheme(dark: boolean) {
+        if (dark) {
+            html.classList.add("dark");
+            thumb.style.transform = "translateX(1.5rem)";
+            darkIcon.style.opacity = "1";
+        } else {
+            html.classList.remove("dark");
+            thumb.style.transform = "translateX(0)";
+            darkIcon.style.opacity = "0";
+        }
+    }
+
+    // Initialize from storage
+    applyTheme(html.classList.contains("dark"));
+
+    btn.addEventListener("click", () => {
+        const isDark = html.classList.contains("dark");
+        applyTheme(!isDark);
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+    });
+</script>

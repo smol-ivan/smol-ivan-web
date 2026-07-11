@@ -1,0 +1,102 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="María Solano"
+    description="Portfolio de María Solano — Kind of nerdy, software engineer & designer."
+>
+    <!-- ── Hero ──────────────────────────────────────── -->
+    <main
+        class="flex-grow flex flex-col items-center justify-center py-stack-lg px-margin-page"
+    >
+        <div class="max-w-[720px] w-full text-center space-y-stack-md">
+            <!-- Profile Info -->
+            <div class="space-y-4">
+                <h1
+                    class="text-headline-lg md:text-[48px] font-bold tracking-tight text-primary"
+                >
+                    Ivan Gordillo
+                </h1>
+                <p
+                    class="text-body-lg text-text-muted leading-relaxed max-w-[600px] mx-auto"
+                >
+                    Kind of nerdy. Oh and I also have a cat, her name is
+                    Ophelia.
+                </p>
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex justify-center pt-stack-sm">
+                <div
+                    class="flex items-center gap-6 px-8 py-4 border border-border-low rounded-xl bg-surface-container-lowest"
+                >
+                    <a
+                        href="#"
+                        title="Resume"
+                        class="text-primary hover:text-secondary transition-colors duration-200"
+                        aria-label="Descargar CV"
+                    >
+                        <span class="material-symbols-outlined text-[28px]"
+                            >description</span
+                        >
+                    </a>
+                    <a
+                        href="mailto:maria@example.com"
+                        title="Email"
+                        class="text-primary hover:text-secondary transition-colors duration-200"
+                        aria-label="Enviar correo"
+                    >
+                        <span class="material-symbols-outlined text-[28px]"
+                            >mail</span
+                        >
+                    </a>
+                    <a
+                        href="https://github.com"
+                        target="_blank"
+                        rel="noopener"
+                        title="GitHub"
+                        class="text-primary hover:text-secondary transition-colors duration-200"
+                        aria-label="GitHub"
+                    >
+                        <span class="material-symbols-outlined text-[28px]"
+                            >code</span
+                        >
+                    </a>
+                    <a
+                        href="https://linkedin.com"
+                        target="_blank"
+                        rel="noopener"
+                        title="LinkedIn"
+                        class="text-primary hover:text-secondary transition-colors duration-200"
+                        aria-label="LinkedIn"
+                    >
+                        <span class="material-symbols-outlined text-[28px]"
+                            >share</span
+                        >
+                    </a>
+                    <a
+                        href="https://x.com"
+                        target="_blank"
+                        rel="noopener"
+                        title="X / Twitter"
+                        class="text-primary hover:text-secondary transition-colors duration-200"
+                        aria-label="X / Twitter"
+                    >
+                        <span class="material-symbols-outlined text-[28px]"
+                            >close</span
+                        >
+                    </a>
+                </div>
+            </div>
+
+            <!-- Decorative divider -->
+            <div class="pt-stack-lg hidden md:block">
+                <div
+                    class="w-px h-24 bg-gradient-to-b from-border-low to-transparent mx-auto opacity-50"
+                >
+                </div>
+            </div>
+        </div>
+    </main>
+</Layout>

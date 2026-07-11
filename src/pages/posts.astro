@@ -1,0 +1,109 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PostItem from "../components/PostItem.astro";
+
+const postGroups = [
+  {
+    year: "2024",
+    active: true,
+    posts: [
+      { title: "Building a Minimalist Design System", date: "OCT 12", href: "#" },
+      { title: "The Case for Monospaced Fonts in UI",  date: "AUG 24", href: "#" },
+      { title: "Refactoring Legacy CSS: A Survival Guide", date: "JUN 05", href: "#" },
+    ],
+  },
+  {
+    year: "2023",
+    active: false,
+    posts: [
+      { title: "Why I Still Use Astro for Static Sites", date: "DEC 30", href: "#" },
+      { title: "Introduction to Three.js Shaders",       date: "SEP 15", href: "#" },
+      { title: "Mental Models for CSS Custom Properties", date: "MAY 22", href: "#" },
+    ],
+  },
+  {
+    year: "2022",
+    active: false,
+    posts: [
+      { title: "The First Post", date: "JAN 01", href: "#" },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Posts — María Solano"
+  description="Archivo de pensamientos, guías técnicas y actualizaciones de proyectos de María Solano."
+  activeNav="posts"
+>
+  <main class="flex-grow max-w-[720px] w-full mx-auto px-margin-page py-stack-lg">
+
+    <!-- ── Header ────────────────────────────────── -->
+    <header class="mb-12">
+      <h1 id="posts-heading" class="text-headline-lg mb-4 text-primary uppercase tracking-tight">
+        Posts
+      </h1>
+      <p class="text-body-md text-text-muted">
+        Archive of thoughts, technical guides, and project updates.
+      </p>
+    </header>
+
+    <!-- ── Filter Bar ────────────────────────────── -->
+    <div class="mb-10 flex items-center gap-2 text-text-muted border-b border-border-low pb-4">
+      <span class="material-symbols-outlined text-[18px]">search</span>
+      <span class="text-code-snippet">FILTER BY TAG: [ALL]</span>
+    </div>
+
+    <!-- ── Posts by Year ──────────────────────────── -->
+    <div class="flex flex-col gap-8">
+      {postGroups.map((group) => (
+        <section>
+          <h2
+            class={`text-label-caps mb-6 border-l-4 pl-3 ${
+              group.active
+                ? "text-secondary border-secondary"
+                : "text-text-muted border-border-low"
+            }`}
+          >
+            {group.year}
+          </h2>
+          <div class="flex flex-col gap-4">
+            {group.posts.map((post) => (
+              <PostItem title={post.title} date={post.date} href={post.href} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- ── Pagination ─────────────────────────────── -->
+    <div class="mt-16 flex justify-between items-center border-t border-border-low pt-8">
+      <span class="text-code-snippet text-text-muted opacity-50 cursor-not-allowed">PREV</span>
+      <div class="flex gap-4">
+        <span class="text-code-snippet text-primary underline">1</span>
+        <a href="#" class="text-code-snippet text-text-muted hover:text-secondary transition-colors">2</a>
+        <a href="#" class="text-code-snippet text-text-muted hover:text-secondary transition-colors">3</a>
+      </div>
+      <a href="#" class="text-code-snippet text-primary hover:text-secondary transition-colors">NEXT →</a>
+    </div>
+
+  </main>
+</Layout>
+
+<script>
+  // Typewriter effect for h1
+  window.addEventListener("DOMContentLoaded", () => {
+    const heading = document.getElementById("posts-heading");
+    if (!heading) return;
+    const text = heading.innerText;
+    heading.innerText = "";
+    let i = 0;
+    const type = () => {
+      if (i < text.length) {
+        heading.innerText += text.charAt(i++);
+        setTimeout(type, 60);
+      }
+    };
+    type();
+  });
+</script>
