@@ -1,42 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PostItem from "../components/PostItem.astro";
+import { getCollection } from "astro:content";
 
-const postGroups = [
-  {
-    year: "2024",
-    active: true,
-    posts: [
-      { title: "Building a Minimalist Design System", date: "OCT 12", href: "#" },
-      { title: "The Case for Monospaced Fonts in UI",  date: "AUG 24", href: "#" },
-      { title: "Refactoring Legacy CSS: A Survival Guide", date: "JUN 05", href: "#" },
-    ],
-  },
-  {
-    year: "2023",
-    active: false,
-    posts: [
-      { title: "Why I Still Use Astro for Static Sites", date: "DEC 30", href: "#" },
-      { title: "Introduction to Three.js Shaders",       date: "SEP 15", href: "#" },
-      { title: "Mental Models for CSS Custom Properties", date: "MAY 22", href: "#" },
-    ],
-  },
-  {
-    year: "2022",
-    active: false,
-    posts: [
-      { title: "The First Post", date: "JAN 01", href: "#" },
-    ],
-  },
-];
+// 1. Obtener todos los posts desde la colección de Markdown
+const allPosts = await getCollection("posts");
+
+// 2. Ordenarlos por fecha (los más recientes primero)
+allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// 3. Agrupar los posts por año de forma dinámica
+const postsByYear = allPosts.reduce((acc, post) => {
+  const year = post.data.date.getFullYear().toString();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(post);
+  return acc;
+}, {} as Record<string, any[]>);
+
+// Formateador para "OCT 12", "AUG 24", etc.
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+});
+
+// Convertir el objeto a un arreglo para poder iterarlo en HTML fácilmente, ordenado por año descendente
+const postGroups = Object.keys(postsByYear)
+  .sort((a, b) => parseInt(b) - parseInt(a))
+  .map((year, index) => ({
+    year,
+    active: index === 0, // Solo el año más reciente es 'active'
+    posts: postsByYear[year].map((p) => ({
+      title: p.data.title,
+      date: dateFormatter.format(p.data.date).toUpperCase(),
+      href: `/posts/${p.id}`,
+    })),
+  }));
 ---
 
 <Layout
-  title="Posts — María Solano"
-  description="Archivo de pensamientos, guías técnicas y actualizaciones de proyectos de María Solano."
+  title="Posts — Ivan Gordillo"
+  description="Archivo de pensamientos, guías técnicas y actualizaciones de proyectos de Ivan Gordillo."
   activeNav="posts"
 >
-  <main class="flex-grow max-w-[720px] w-full mx-auto px-margin-page py-stack-lg">
+  <main class="flex-grow max-w-[720px] w-full mx-auto px-margin-page md:px-0 py-stack-lg">
 
     <!-- ── Header ────────────────────────────────── -->
     <header class="mb-12">
@@ -54,7 +62,7 @@ const postGroups = [
       <span class="text-code-snippet">FILTER BY TAG: [ALL]</span>
     </div>
 
-    <!-- ── Posts by Year ──────────────────────────── -->
+    <!-- ── Posts by Year (Dinámicos) ─────────────── -->
     <div class="flex flex-col gap-8">
       {postGroups.map((group) => (
         <section>
@@ -81,8 +89,6 @@ const postGroups = [
       <span class="text-code-snippet text-text-muted opacity-50 cursor-not-allowed">PREV</span>
       <div class="flex gap-4">
         <span class="text-code-snippet text-primary underline">1</span>
-        <a href="#" class="text-code-snippet text-text-muted hover:text-secondary transition-colors">2</a>
-        <a href="#" class="text-code-snippet text-text-muted hover:text-secondary transition-colors">3</a>
       </div>
       <a href="#" class="text-code-snippet text-primary hover:text-secondary transition-colors">NEXT →</a>
     </div>

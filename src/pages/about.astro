@@ -3,133 +3,141 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout
-  title="About — María Solano"
-  description="Conoce a María Solano: ingeniera de software y diseñadora con una filosofía 'Quietly Intelligent'."
-  activeNav="about"
+    title="About — Ivan Gordillo"
+    description="Get to know a little about Ivan Gordillo: Computer engineeer"
+    activeNav="about"
 >
-  <main class="max-w-[720px] mx-auto px-margin-page py-stack-lg min-h-screen">
+    <main class="max-w-[720px] mx-auto px-margin-page py-stack-lg min-h-screen">
+        <!-- ── Hero ──────────────────────────────────── -->
+        <section class="mb-stack-lg text-center">
+            <h1 class="text-headline-lg mb-stack-sm">About Me</h1>
+            <p class="text-body-lg text-text-muted italic">
+                "Judge a man by his questions rather than his answers"
+            </p>
+            <p class="text-body-lg text-text-muted italic">Francis Bacon</p>
+        </section>
 
-    <!-- ── Hero ──────────────────────────────────── -->
-    <section class="mb-stack-lg text-center">
-      <h1 class="text-headline-lg mb-stack-sm">About Me</h1>
-      <p class="text-body-lg text-text-muted italic">
-        "Curiosity is the engine of achievement."
-      </p>
-    </section>
+        <!-- ── Bio ───────────────────────────────────── -->
+        <section class="flex flex-col gap-stack-md mb-stack-lg">
+            <!-- Avatar placeholder -->
+            <!-- <div class="flex justify-center mb-stack-md">
+                <div
+                    class="w-24 h-24 rounded-lg overflow-hidden border border-border-low bg-surface-container flex items-center justify-center"
+                >
+                    <span
+                        class="material-symbols-outlined text-[48px] text-text-muted"
+                        >person</span
+                    >
+                </div>
+            </div> -->
 
-    <!-- ── Bio ───────────────────────────────────── -->
-    <section class="flex flex-col gap-stack-md mb-stack-lg">
-      <!-- Avatar placeholder -->
-      <div class="flex justify-center mb-stack-md">
-        <div class="w-24 h-24 rounded-lg overflow-hidden border border-border-low bg-surface-container flex items-center justify-center">
-          <span class="material-symbols-outlined text-[48px] text-text-muted">person</span>
-        </div>
-      </div>
+            <div class="space-y-stack-md text-justify">
+                <p class="text-body-lg">
+                    Hello, I'm Ivan. I'm a computer engineer student and
+                    enthusiast.
+                </p>
+            </div>
+        </section>
 
-      <div class="space-y-stack-md text-justify">
-        <p class="text-body-lg">
-          Hello, I'm María. I'm a software engineer and designer based in the digital ether.
-          My work sits at the intersection of technical architecture and visual systems,
-          where I strive to create interfaces that are as robust as they are legible.
-        </p>
-        <p class="text-body-lg">
-          I started my journey in the world of command-line tools and academic research,
-          which deeply influenced my "Quietly Intelligent" design philosophy. I believe
-          that good UI shouldn't scream for attention; it should provide a calm, structured
-          environment for thought and action.
-        </p>
-      </div>
-    </section>
+        <!-- ── Experience ────────────────────────────── -->
+        <!-- <section class="mb-stack-lg">
+            <h2 class="text-headline-md mb-stack-md flex items-center gap-2">
+                <span class="material-symbols-outlined">terminal</span>
+                Experience.log
+            </h2>
 
-    <!-- ── Experience ────────────────────────────── -->
-    <section class="mb-stack-lg">
-      <h2 class="text-headline-md mb-stack-md flex items-center gap-2">
-        <span class="material-symbols-outlined">terminal</span>
-        Experience.log
-      </h2>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                <div class="md:col-span-4 border-l-2 border-primary pl-4 py-2">
+                    <span class="text-label-caps text-secondary block mb-1"
+                        >2021 — PRESENT</span
+                    >
+                    <h3 class="text-body-lg font-bold">Lead Developer</h3>
+                    <p class="text-code-snippet text-text-muted">
+                        PaperMod Inc.
+                    </p>
+                </div>
+                <div
+                    class="md:col-span-8 bg-surface p-4 border border-border-low rounded-lg"
+                >
+                    <p class="text-body-md">
+                        Architecting scalable frontend systems and maintaining
+                        internal design tokens. Focusing on performance
+                        optimization and accessibility standards across multiple
+                        product lines.
+                    </p>
+                </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-        <!-- Job 1 -->
-        <div class="md:col-span-4 border-l-2 border-primary pl-4 py-2">
-          <span class="text-label-caps text-secondary block mb-1">2021 — PRESENT</span>
-          <h3 class="text-body-lg font-bold">Lead Developer</h3>
-          <p class="text-code-snippet text-text-muted">PaperMod Inc.</p>
-        </div>
-        <div class="md:col-span-8 bg-surface p-4 border border-border-low rounded-lg">
-          <p class="text-body-md">
-            Architecting scalable frontend systems and maintaining internal design tokens.
-            Focusing on performance optimization and accessibility standards across multiple product lines.
-          </p>
-        </div>
+                <div
+                    class="md:col-span-4 border-l-2 border-border-low pl-4 py-2"
+                >
+                    <span class="text-label-caps text-text-muted block mb-1"
+                        >2018 — 2021</span
+                    >
+                    <h3 class="text-body-lg font-bold">UI Engineer</h3>
+                    <p class="text-code-snippet text-text-muted">System.init</p>
+                </div>
+                <div class="md:col-span-8 p-4">
+                    <p class="text-body-md">
+                        Developed a custom CSS-in-JS library and contributed to
+                        the open-source community. Implemented complex data
+                        visualization dashboards for fintech clients.
+                    </p>
+                </div>
+            </div>
+        </section> -->
 
-        <!-- Job 2 -->
-        <div class="md:col-span-4 border-l-2 border-border-low pl-4 py-2">
-          <span class="text-label-caps text-text-muted block mb-1">2018 — 2021</span>
-          <h3 class="text-body-lg font-bold">UI Engineer</h3>
-          <p class="text-code-snippet text-text-muted">System.init</p>
-        </div>
-        <div class="md:col-span-8 p-4">
-          <p class="text-body-md">
-            Developed a custom CSS-in-JS library and contributed to the open-source community.
-            Implemented complex data visualization dashboards for fintech clients.
-          </p>
-        </div>
-      </div>
-    </section>
+        <!-- ── Interests Bento ────────────────────────── -->
+        <!-- <section class="mb-stack-lg">
+            <h2 class="text-headline-md mb-stack-md flex items-center gap-2">
+                <span class="material-symbols-outlined">interests</span>
+                Interests
+            </h2>
 
-    <!-- ── Interests Bento ────────────────────────── -->
-    <section class="mb-stack-lg">
-      <h2 class="text-headline-md mb-stack-md flex items-center gap-2">
-        <span class="material-symbols-outlined">interests</span>
-        Interests
-      </h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-stack-sm">
+                <div
+                    class="p-4 border border-border-low col-span-2 flex flex-col justify-between hover:bg-surface-container transition-colors duration-200 rounded-lg"
+                >
+                    <span class="text-label-caps text-secondary"
+                        >FAVORITE STACK</span
+                    >
+                    <p class="text-headline-md mt-2">
+                        Astro, Go, & TailwindCSS
+                    </p>
+                </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-stack-sm">
-        <div class="p-4 border border-border-low col-span-2 flex flex-col justify-between hover:bg-surface-container transition-colors duration-200 rounded-lg">
-          <span class="text-label-caps text-secondary">FAVORITE STACK</span>
-          <p class="text-headline-md mt-2">Astro, Go, & TailwindCSS</p>
-        </div>
+                <div
+                    class="p-4 border border-border-low flex flex-col items-center justify-center bg-primary text-on-primary rounded-lg"
+                >
+                    <span class="material-symbols-outlined text-[32px]"
+                        >pets</span
+                    >
+                    <p class="text-label-caps mt-2">Ophelia (Cat)</p>
+                </div>
 
-        <div class="p-4 border border-border-low flex flex-col items-center justify-center bg-primary text-on-primary rounded-lg">
-          <span class="material-symbols-outlined text-[32px]">pets</span>
-          <p class="text-label-caps mt-2">Ophelia (Cat)</p>
-        </div>
+                <div
+                    class="p-4 border border-border-low flex flex-col gap-2 rounded-lg"
+                >
+                    <span class="text-label-caps text-text-muted">READING</span>
+                    <p class="text-body-md leading-tight">
+                        "Gödel, Escher, Bach" by Douglas Hofstadter
+                    </p>
+                </div>
 
-        <div class="p-4 border border-border-low flex flex-col gap-2 rounded-lg">
-          <span class="text-label-caps text-text-muted">READING</span>
-          <p class="text-body-md leading-tight">"Gödel, Escher, Bach" by Douglas Hofstadter</p>
-        </div>
-
-        <div class="p-4 border border-border-low col-span-2 flex items-center gap-stack-md bg-surface-container-low rounded-lg">
-          <span class="material-symbols-outlined text-[40px] text-primary">coffee</span>
-          <div>
-            <p class="text-body-lg font-bold">Coffee Enthusiast</p>
-            <p class="text-body-md">V60 Pour-over, single origin, light roast.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Social Bar ─────────────────────────────── -->
-    <div class="w-full flex justify-center mt-stack-lg">
-      <div class="flex items-center gap-stack-md px-stack-md py-stack-sm border border-border-low rounded-xl">
-        <a href="#" aria-label="Resume" class="text-primary cursor-pointer hover:text-secondary transition-colors duration-200">
-          <span class="material-symbols-outlined">article</span>
-        </a>
-        <a href="mailto:maria@example.com" aria-label="Email" class="text-primary cursor-pointer hover:text-secondary transition-colors duration-200">
-          <span class="material-symbols-outlined">mail</span>
-        </a>
-        <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub" class="text-primary cursor-pointer hover:text-secondary transition-colors duration-200">
-          <span class="material-symbols-outlined">code</span>
-        </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-primary cursor-pointer hover:text-secondary transition-colors duration-200">
-          <span class="material-symbols-outlined">groups</span>
-        </a>
-        <a href="https://github.com" target="_blank" rel="noopener" aria-label="Repos" class="text-primary cursor-pointer hover:text-secondary transition-colors duration-200">
-          <span class="material-symbols-outlined">terminal</span>
-        </a>
-      </div>
-    </div>
-
-  </main>
+                <div
+                    class="p-4 border border-border-low col-span-2 flex items-center gap-stack-md bg-surface-container-low rounded-lg"
+                >
+                    <span
+                        class="material-symbols-outlined text-[40px] text-primary"
+                        >coffee</span
+                    >
+                    <div>
+                        <p class="text-body-lg font-bold">Coffee Enthusiast</p>
+                        <p class="text-body-md">
+                            V60 Pour-over, single origin, light roast.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+    </main>
 </Layout>
