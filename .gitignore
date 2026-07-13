@@ -37,3 +37,18 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 /stitch_hugo_portfolio_template
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.rc
+terraform.rc
