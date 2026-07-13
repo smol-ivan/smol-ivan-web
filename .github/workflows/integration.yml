@@ -21,7 +21,7 @@ jobs:
                   cache: "npm"
 
             - name: Install dependencies
-              run: nmp ci
+              run: npm ci
 
             - name: Format validation (Prettier)
               run: npx prettier --check .
