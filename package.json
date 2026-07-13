@@ -1,20 +1,23 @@
 {
-  "name": "",
+  "name": "smol-ivan website",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",
     "astro": "^7.0.7",
+    "astro-mermaid": "^2.1.0",
     "ls": "^1.0.0",
+    "mermaid": "^11.16.0",
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {

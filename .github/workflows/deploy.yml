@@ -1,72 +1,71 @@
 name: Deploy to AWS EC2 (debian)
 
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
 
-      # Configurar credenciales 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: us-west-2
+            # Configurar credenciales
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+                  aws-region: us-west-2
 
-      # Autenticarse con ECR
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+            # Autenticarse con ECR
+            - name: Login to Amazon ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v2
 
-      # Construir imagen, subirla a ECR
-      - name: Build, tag, and push image to Amazon ECR
-        env: 
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: smol-ivan-web
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-      
-      # Crear carpeta en el servidor EC2 y copiar el docker-compose.yml
-      - name: Copy Compose file to EC2
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: admin # Usuario por defecto de Debian
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "docker-compose.yml"
-          target: "/home/admin/app"
+            # Construir imagen, subirla a ECR
+            - name: Build, tag, and push image to Amazon ECR
+              env:
+                  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                  ECR_REPOSITORY: smol-ivan-web
+                  IMAGE_TAG: ${{ github.sha }}
+              run: |
+                  docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+                  docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+                  docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-      # Conectarse por SSH al EC2 y actualizar los contenedores
-      - name: Deploy to EC2 via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: admin
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd /home/admin/app
-            
-            aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}
-            
-            cat > .env <<EOF
-            ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}
-            ECR_REPOSITORY=smol-ivan-web
-            IMAGE_TAG=${{ github.sha }}
-            EOF
-            
-            docker compose -f docker-compose.yml pull
-            docker compose -f docker-compose.yml up -d
+            # Crear carpeta en el servidor EC2 y copiar el docker-compose.yml
+            - name: Copy Compose file to EC2
+              uses: appleboy/scp-action@v0.1.7
+              with:
+                  host: ${{ secrets.EC2_HOST }}
+                  username: admin # Usuario por defecto de Debian
+                  key: ${{ secrets.EC2_SSH_KEY }}
+                  source: "docker-compose.yml"
+                  target: "/home/admin/app"
 
-            docker image prune -af --filter "until=72h"
+            # Conectarse por SSH al EC2 y actualizar los contenedores
+            - name: Deploy to EC2 via SSH
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.EC2_HOST }}
+                  username: admin
+                  key: ${{ secrets.EC2_SSH_KEY }}
+                  script: |
+                      cd /home/admin/app
 
+                      aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }}
+
+                      cat > .env <<EOF
+                      ECR_REGISTRY=${{ steps.login-ecr.outputs.registry }}
+                      ECR_REPOSITORY=smol-ivan-web
+                      IMAGE_TAG=${{ github.sha }}
+                      EOF
+
+                      docker compose -f docker-compose.yml pull
+                      docker compose -f docker-compose.yml up -d
+
+                      docker image prune -af --filter "until=72h"
