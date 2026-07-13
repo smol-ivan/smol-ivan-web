@@ -145,11 +145,30 @@ const formattedDate = formatter.format(post.data.date);
     color: var(--color-primary);
     font-weight: bold;
   }
-  .prose pre {
+  .prose pre:not(.mermaid) {
     background-color: #1e1e1e !important;
     padding: var(--spacing-stack-md);
     margin: var(--spacing-stack-md) 0;
     overflow-x: auto;
     border-radius: var(--radius-DEFAULT);
+  }
+
+  .prose pre.mermaid {
+    background-color: transparent !important;
+    padding: var(--spacing-stack-sm);
+    margin: var(--spacing-stack-md) 0;
+    border-radius: var(--radius-DEFAULT);
+    border: 1px solid var(--color-border-low);
+  }
+
+  .prose pre.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    background-color: transparent !important;
+  }
+
+  html.dark .prose pre.mermaid {
+    background-color: var(--color-surface-container-low) !important;
+    border-color: var(--color-border-high);
   }
 </style>
