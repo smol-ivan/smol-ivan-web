@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 
-const projects = []
+const projects = [];
 
 // const projects = [
 //   {
@@ -49,36 +49,39 @@ const projects = []
 ---
 
 <Layout
-  title="Projects — Ivan Gordillo"
-  description="Colección de experimentos técnicos, proyectos de documentación y contribuciones de Ivan Gordillo."
-  activeNav="projects"
+    title="Projects — Ivan Gordillo"
+    description="Colección de experimentos técnicos, proyectos de documentación y contribuciones de Ivan Gordillo."
+    activeNav="projects"
 >
-  <main class="flex-grow max-w-[720px] w-full mx-auto px-margin-page py-stack-lg">
+    <main
+        class="flex-grow max-w-[720px] w-full mx-auto px-margin-page py-stack-lg"
+    >
+        <!-- ── Page Title ─────────────────────────────── -->
+        <section class="mb-stack-lg text-center">
+            <h1 class="text-headline-lg mb-stack-sm">Projects</h1>
+            <p class="text-body-lg text-text-muted">
+                A collection of hard work.
+            </p>
+        </section>
 
-    <!-- ── Page Title ─────────────────────────────── -->
-    <section class="mb-stack-lg text-center">
-      <h1 class="text-headline-lg mb-stack-sm">Projects</h1>
-      <p class="text-body-lg text-text-muted">
-        A collection of hard work.
-      </p>
-    </section>
+        <!-- ── Projects List ──────────────────────────── -->
+        <div class="space-y-12">
+            <p class="text-4xl">Pending to update</p>
+            {
+                projects.map((project) => (
+                    <ProjectCard
+                        title={project.title}
+                        year={project.year}
+                        description={project.description}
+                        tags={project.tags}
+                        href={project.href}
+                    />
+                ))
+            }
+        </div>
 
-    <!-- ── Projects List ──────────────────────────── -->
-    <div class="space-y-12">
-        <p class="text-4xl">Pending to update</p>
-      {projects.map((project) => (
-        <ProjectCard
-          title={project.title}
-          year={project.year}
-          description={project.description}
-          tags={project.tags}
-          href={project.href}
-        />
-      ))}
-    </div>
-
-    <!-- ── Visual Log ─────────────────────────────── -->
-    <!-- <section class="mt-24 pt-12 border-t border-border-low flex flex-col gap-8">
+        <!-- ── Visual Log ─────────────────────────────── -->
+        <!-- <section class="mt-24 pt-12 border-t border-border-low flex flex-col gap-8">
       <h2 class="text-headline-md">Visual Log</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
         <div class="relative aspect-video bg-surface-container overflow-hidden group rounded-lg">
@@ -99,6 +102,5 @@ const projects = []
         </div>
       </div>
     </section> -->
-
-  </main>
+    </main>
 </Layout>

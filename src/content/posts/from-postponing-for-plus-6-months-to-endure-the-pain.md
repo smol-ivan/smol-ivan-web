@@ -35,8 +35,8 @@ resource "aws_ecr_repository" "app_repo" {
 }
 ```
 
-
 ## 2. Complete development flow
+
 ```mermaid
 graph TD
     %% Estilos Generales Minimalistas
