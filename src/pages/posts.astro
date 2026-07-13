@@ -10,106 +10,129 @@ const allPosts = await getCollection("posts");
 allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 // 3. Agrupar los posts por año de forma dinámica
-const postsByYear = allPosts.reduce((acc, post) => {
-  const year = post.data.date.getFullYear().toString();
-  if (!acc[year]) {
-    acc[year] = [];
-  }
-  acc[year].push(post);
-  return acc;
-}, {} as Record<string, any[]>);
+const postsByYear = allPosts.reduce(
+    (acc, post) => {
+        const year = post.data.date.getFullYear().toString();
+        if (!acc[year]) {
+            acc[year] = [];
+        }
+        acc[year].push(post);
+        return acc;
+    },
+    {} as Record<string, any[]>,
+);
 
 // Formateador para "OCT 12", "AUG 24", etc.
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
+    month: "short",
+    day: "numeric",
 });
 
 // Convertir el objeto a un arreglo para poder iterarlo en HTML fácilmente, ordenado por año descendente
 const postGroups = Object.keys(postsByYear)
-  .sort((a, b) => parseInt(b) - parseInt(a))
-  .map((year, index) => ({
-    year,
-    active: index === 0, // Solo el año más reciente es 'active'
-    posts: postsByYear[year].map((p) => ({
-      title: p.data.title,
-      date: dateFormatter.format(p.data.date).toUpperCase(),
-      href: `/posts/${p.id}`,
-    })),
-  }));
+    .sort((a, b) => parseInt(b) - parseInt(a))
+    .map((year, index) => ({
+        year,
+        active: index === 0, // Solo el año más reciente es 'active'
+        posts: postsByYear[year].map((p) => ({
+            title: p.data.title,
+            date: dateFormatter.format(p.data.date).toUpperCase(),
+            href: `/posts/${p.id}`,
+        })),
+    }));
 ---
 
 <Layout
-  title="Posts — Ivan Gordillo"
-  description="Archivo de pensamientos, guías técnicas y actualizaciones de proyectos de Ivan Gordillo."
-  activeNav="posts"
+    title="Posts — Ivan Gordillo"
+    description="Archivo de pensamientos, guías técnicas y actualizaciones de proyectos de Ivan Gordillo."
+    activeNav="posts"
 >
-  <main class="flex-grow max-w-[720px] w-full mx-auto px-margin-page md:px-0 py-stack-lg">
+    <main
+        class="flex-grow max-w-[720px] w-full mx-auto px-margin-page md:px-0 py-stack-lg"
+    >
+        <!-- ── Header ────────────────────────────────── -->
+        <header class="mb-12">
+            <h1
+                id="posts-heading"
+                class="text-headline-lg mb-4 text-primary uppercase tracking-tight"
+            >
+                Posts
+            </h1>
+            <p class="text-body-md text-text-muted">
+                Archive of thoughts, technical guides, and project updates.
+            </p>
+        </header>
 
-    <!-- ── Header ────────────────────────────────── -->
-    <header class="mb-12">
-      <h1 id="posts-heading" class="text-headline-lg mb-4 text-primary uppercase tracking-tight">
-        Posts
-      </h1>
-      <p class="text-body-md text-text-muted">
-        Archive of thoughts, technical guides, and project updates.
-      </p>
-    </header>
+        <!-- ── Filter Bar ────────────────────────────── -->
+        <div
+            class="mb-10 flex items-center gap-2 text-text-muted border-b border-border-low pb-4"
+        >
+            <span class="material-symbols-outlined text-[18px]">search</span>
+            <span class="text-code-snippet">FILTER BY TAG: [ALL]</span>
+        </div>
 
-    <!-- ── Filter Bar ────────────────────────────── -->
-    <div class="mb-10 flex items-center gap-2 text-text-muted border-b border-border-low pb-4">
-      <span class="material-symbols-outlined text-[18px]">search</span>
-      <span class="text-code-snippet">FILTER BY TAG: [ALL]</span>
-    </div>
+        <!-- ── Posts by Year (Dinámicos) ─────────────── -->
+        <div class="flex flex-col gap-8">
+            {
+                postGroups.map((group) => (
+                    <section>
+                        <h2
+                            class={`text-label-caps mb-6 border-l-4 pl-3 ${
+                                group.active
+                                    ? "text-secondary border-secondary"
+                                    : "text-text-muted border-border-low"
+                            }`}
+                        >
+                            {group.year}
+                        </h2>
+                        <div class="flex flex-col gap-4">
+                            {group.posts.map((post) => (
+                                <PostItem
+                                    title={post.title}
+                                    date={post.date}
+                                    href={post.href}
+                                />
+                            ))}
+                        </div>
+                    </section>
+                ))
+            }
+        </div>
 
-    <!-- ── Posts by Year (Dinámicos) ─────────────── -->
-    <div class="flex flex-col gap-8">
-      {postGroups.map((group) => (
-        <section>
-          <h2
-            class={`text-label-caps mb-6 border-l-4 pl-3 ${
-              group.active
-                ? "text-secondary border-secondary"
-                : "text-text-muted border-border-low"
-            }`}
-          >
-            {group.year}
-          </h2>
-          <div class="flex flex-col gap-4">
-            {group.posts.map((post) => (
-              <PostItem title={post.title} date={post.date} href={post.href} />
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
-
-    <!-- ── Pagination ─────────────────────────────── -->
-    <div class="mt-16 flex justify-between items-center border-t border-border-low pt-8">
-      <span class="text-code-snippet text-text-muted opacity-50 cursor-not-allowed">PREV</span>
-      <div class="flex gap-4">
-        <span class="text-code-snippet text-primary underline">1</span>
-      </div>
-      <a href="#" class="text-code-snippet text-primary hover:text-secondary transition-colors">NEXT →</a>
-    </div>
-
-  </main>
+        <!-- ── Pagination ─────────────────────────────── -->
+        <div
+            class="mt-16 flex justify-between items-center border-t border-border-low pt-8"
+        >
+            <span
+                class="text-code-snippet text-text-muted opacity-50 cursor-not-allowed"
+                >PREV</span
+            >
+            <div class="flex gap-4">
+                <span class="text-code-snippet text-primary underline">1</span>
+            </div>
+            <a
+                href="#"
+                class="text-code-snippet text-primary hover:text-secondary transition-colors"
+                >NEXT →</a
+            >
+        </div>
+    </main>
 </Layout>
 
 <script>
-  // Typewriter effect for h1
-  window.addEventListener("DOMContentLoaded", () => {
-    const heading = document.getElementById("posts-heading");
-    if (!heading) return;
-    const text = heading.innerText;
-    heading.innerText = "";
-    let i = 0;
-    const type = () => {
-      if (i < text.length) {
-        heading.innerText += text.charAt(i++);
-        setTimeout(type, 60);
-      }
-    };
-    type();
-  });
+    // Typewriter effect for h1
+    window.addEventListener("DOMContentLoaded", () => {
+        const heading = document.getElementById("posts-heading");
+        if (!heading) return;
+        const text = heading.innerText;
+        heading.innerText = "";
+        let i = 0;
+        const type = () => {
+            if (i < text.length) {
+                heading.innerText += text.charAt(i++);
+                setTimeout(type, 60);
+            }
+        };
+        type();
+    });
 </script>
