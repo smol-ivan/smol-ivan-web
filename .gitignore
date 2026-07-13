@@ -16,6 +16,20 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Ignore any generic configuration dumps containing secrets
+**/*.env
+**/*.env.local
+
+# EXCEPT templates/examples which safe to share with the team
+!.env.example
+!.env.template
+
 
 # macOS-specific files
 .DS_Store
