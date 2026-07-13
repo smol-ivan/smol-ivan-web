@@ -37,14 +37,14 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
       
-      # Crear carpeta en el servidor EC2 y copiar el docker-compose.prod.yml
+      # Crear carpeta en el servidor EC2 y copiar el docker-compose.yml
       - name: Copy Compose file to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.EC2_HOST }}
           username: admin # Usuario por defecto de Debian
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "docker-compose.prod.yml"
+          source: "docker-compose.yml"
           target: "/home/admin/app"
 
       # Conectarse por SSH al EC2 y actualizar los contenedores
@@ -65,8 +65,8 @@ jobs:
             IMAGE_TAG=${{ github.sha }}
             EOF
             
-            docker compose -f docker-compose.prod.yml pull
-            docker compose -f docker-compose.prod.yml up -d
+            docker compose -f docker-compose.yml pull
+            docker compose -f docker-compose.yml up -d
 
             docker image prune -af --filter "until=72h"
 
