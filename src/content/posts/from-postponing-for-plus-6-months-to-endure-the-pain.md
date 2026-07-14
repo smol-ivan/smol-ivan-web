@@ -3,13 +3,12 @@ title: "From delaying almost half a year to get to build my own page enduring th
 description: "A deep dive into automating modern web infrastructure using Terraform, Docker, GitHub Actions, and self-hosted VPS environments with enforced branch security."
 date: 2026-07-13
 tags: ["DEVOPS", "INFRASTRUCTURE", "ASTRO"]
-image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCyAxRLCukPrSXqtACFyFzLO86fpDsUxiwYFXdKC43Z1K9O4oBsbt_oawLYjQVwrdl_m3a1LjuDEtdCC-glBSnJBI4mqZCrhIQ6TIW8X0sJWoLVAZuQKWQ6iAQVeCDpG25GBgPn-6c3EZLqC112I4YnzA5NY_MNUpVQ81kDttJXcpjYUjBs64ArcHIC1PNlcubGpc-_5yPQToBTwNvHH-5radk9gVftMUrMieqjMN4wcxlm76W-okKITw"
-imageAlt: "A terminal interface displaying a successful multi-stage Docker build and a completed GitHub Actions pipeline execution."
+# image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCyAxRLCukPrSXqtACFyFzLO86fpDsUxiwYFXdKC43Z1K9O4oBsbt_oawLYjQVwrdl_m3a1LjuDEtdCC-glBSnJBI4mqZCrhIQ6TIW8X0sJWoLVAZuQKWQ6iAQVeCDpG25GBgPn-6c3EZLqC112I4YnzA5NY_MNUpVQ81kDttJXcpjYUjBs64ArcHIC1PNlcubGpc-_5yPQToBTwNvHH-5radk9gVftMUrMieqjMN4wcxlm76W-okKITw"
+# imageAlt: "A terminal interface displaying a successful multi-stage Docker build and a completed GitHub Actions pipeline execution."
 readingTime: "6 min read"
 ---
 
 Deploying a web application it doesn't seems to difficult, until you steer in that direction ...
-
 
 Jk that is me begin dramatic, but I am not lying, gettin use to the cloud could be chaotic at the start
 
@@ -42,7 +41,7 @@ resource "aws_ecr_repository" "app_repo" {
 
 To maintain zero-dependency environment on the host vps, the Astro application is packaged inside an isolated Docker container. A multi-stage structure splits the node building dependencies from the final lightweight execution target running Nginx.
 
-```Dockerfile
+```dockerfile
 # Stage 1: Build the application
 FROM node:lts-alpine AS build
 WORKDIR /app
@@ -58,15 +57,16 @@ COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 ```
 
-## 3. Complete development flow
+## 3. Overall development flow
 
-Once the pull request is approved and merged, a second pipeline executes the automated deployment. It builds the stable image, pushes it to Amazon ECR, connects to the VPS over an isolated SSH connection, pulls the newest container layer, and reloads Nginx dynamically.
+First of all, I integrate a basic pipeline for integration that checks the basic of an astro proyect, then build the docker, once the pull request is approved and merged, a second pipeline executes the automated deployment. It builds the stable image, pushes it to Amazon ECR, connects to the VPS over an isolated SSH connection, pulls the newest container layer, and reloads Nginx dynamically.
 
-Pretty insane 
 
 - Automated state synchronization on merge.
 - Secure certificate routing managed on the VPS via Let's Encrypt.
 - Zero software requirements on the server except Docker and an SSH daemon.
+
+Pretty insane 
 
 ```mermaid
 flowchart LR
