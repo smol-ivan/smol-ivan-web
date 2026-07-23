@@ -70,15 +70,22 @@ const {
         </style>
         <script is:inline>
             (function () {
-                if (document.fonts && document.fonts.check("1em Material Symbols Outlined")) {
-                    document.querySelectorAll(".material-symbols-outlined").forEach(function(el) {
-                        el.classList.add("font-loaded");
-                    });
-                } else if (document.fonts) {
-                    document.fonts.ready.then(function () {
-                        document.querySelectorAll(".material-symbols-outlined").forEach(function(el) {
+                if (
+                    document.fonts &&
+                    document.fonts.check("1em Material Symbols Outlined")
+                ) {
+                    document
+                        .querySelectorAll(".material-symbols-outlined")
+                        .forEach(function (el) {
                             el.classList.add("font-loaded");
                         });
+                } else if (document.fonts) {
+                    document.fonts.ready.then(function () {
+                        document
+                            .querySelectorAll(".material-symbols-outlined")
+                            .forEach(function (el) {
+                                el.classList.add("font-loaded");
+                            });
                     });
                 }
             })();
@@ -252,37 +259,48 @@ const {
         });
 
         // Re-assign references after cloning
-        thumb = newBtn.querySelector("#toggle-thumb") || document.getElementById("toggle-thumb");
-        darkIcon = newBtn.querySelector("#dark-icon") || document.getElementById("dark-icon");
-        lightIcon = newBtn.querySelector("#light-icon") || document.getElementById("light-icon");
+        thumb =
+            newBtn.querySelector("#toggle-thumb") ||
+            document.getElementById("toggle-thumb");
+        darkIcon =
+            newBtn.querySelector("#dark-icon") ||
+            document.getElementById("dark-icon");
+        lightIcon =
+            newBtn.querySelector("#light-icon") ||
+            document.getElementById("light-icon");
     }
 
     // Run on initial load
     initThemeToggle();
 
     // Run again after View Transitions swap
-    document.addEventListener("astro:page-load", function() {
+    document.addEventListener("astro:page-load", function () {
         initThemeToggle();
-        
+
         // Update active nav link
         var path = window.location.pathname;
-        var navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(function(item) {
-            item.classList.remove('nav-link-active');
-            var href = item.getAttribute('href');
+        var navItems = document.querySelectorAll(".nav-item");
+        navItems.forEach(function (item) {
+            item.classList.remove("nav-link-active");
+            var href = item.getAttribute("href");
             if (path.startsWith(href)) {
-                item.classList.add('nav-link-active');
+                item.classList.add("nav-link-active");
             }
         });
     });
 
     // Also handle font loading for icons
     function markFontsLoaded() {
-        document.querySelectorAll(".material-symbols-outlined").forEach(function(el) {
-            el.classList.add("font-loaded");
-        });
+        document
+            .querySelectorAll(".material-symbols-outlined")
+            .forEach(function (el) {
+                el.classList.add("font-loaded");
+            });
     }
-    if (document.fonts && document.fonts.check("1em Material Symbols Outlined")) {
+    if (
+        document.fonts &&
+        document.fonts.check("1em Material Symbols Outlined")
+    ) {
         markFontsLoaded();
     } else if (document.fonts) {
         document.fonts.ready.then(markFontsLoaded);
