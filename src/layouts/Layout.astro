@@ -68,21 +68,23 @@ const {
                     <button
                         id="theme-toggle"
                         aria-label="Cambiar tema"
-                        class="hidden flex items-center p-1 bg-surface-container rounded-full cursor-pointer active:opacity-70 transition-all"
+                        class="flex items-center p-1 bg-surface-container rounded-full cursor-pointer active:opacity-70 transition-all"
                     >
-                        <div class="w-16 h-6 flex items-center relative px-1">
+                        <div class="w-12 h-6 flex items-center relative px-1">
                             <div
                                 id="toggle-thumb"
                                 class="w-4 h-4 bg-primary rounded-full transition-transform duration-300 translate-x-0"
                             >
                             </div>
                             <span
-                                class="material-symbols-outlined absolute left-1.5 text-[12px] select-none"
+                                id="light-icon"
+                                class="material-symbols-outlined absolute right-1 text-[12px] select-none transition-opacity"
                                 >light_mode</span
                             >
                             <span
-                                class="material-symbols-outlined absolute right-1.5 text-[12px] select-none opacity-0"
-                                id="dark-icon">dark_mode</span
+                                id="dark-icon"
+                                class="material-symbols-outlined absolute left-1 text-[12px] select-none opacity-0 transition-opacity"
+                                >dark_mode</span
                             >
                         </div>
                     </button>
@@ -179,6 +181,7 @@ const {
     const btn = document.getElementById("theme-toggle")!;
     const thumb = document.getElementById("toggle-thumb")!;
     const darkIcon = document.getElementById("dark-icon")!;
+    const lightIcon = document.getElementById("light-icon")!;
     const html = document.documentElement;
 
     function applyTheme(dark: boolean) {
@@ -186,10 +189,12 @@ const {
             html.classList.add("dark");
             thumb.style.transform = "translateX(1.5rem)";
             darkIcon.style.opacity = "1";
+            lightIcon.style.opacity = "0";
         } else {
             html.classList.remove("dark");
             thumb.style.transform = "translateX(0)";
             darkIcon.style.opacity = "0";
+            lightIcon.style.opacity = "1";
         }
     }
 
