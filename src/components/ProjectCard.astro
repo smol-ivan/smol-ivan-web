@@ -2,12 +2,29 @@
 interface Props {
     title: string;
     year: string | number;
+    month: number;
     description: string;
     tags: string[];
     href?: string;
 }
 
-const { title, year, description, tags, href = "#" } = Astro.props;
+const { title, year, month, description, tags, href = "#" } = Astro.props;
+
+const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+];
+const displayDate = `${monthNames[month - 1]} ${year}`;
 ---
 
 <article class="group cursor-default">
@@ -22,7 +39,8 @@ const { title, year, description, tags, href = "#" } = Astro.props;
                 {title}
             </a>
         </h2>
-        <span class="text-label-caps text-text-muted shrink-0 ml-4">{year}</span
+        <span class="text-label-caps text-text-muted shrink-0 ml-4"
+            >{displayDate}</span
         >
     </div>
     <p class="text-body-md mb-3 text-on-surface-variant">{description}</p>

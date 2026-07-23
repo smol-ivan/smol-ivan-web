@@ -1,17 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
 
-const projects = [
-    {
-        title: "Cryptocurrency Portfolio Optimization",
-        year: 2026,
-        description:
-            "Final proyect to get my computer engineer degree. I made an interactive dashboard that can run and compare different configurations of the algorithm (PSO) in real time",
-        tags: ["Python", "Streamlit", "Matplotlib"],
-        href: "#",
-    },
-];
+const allProjects = await getCollection("projects");
+const projects = allProjects.sort((a, b) => {
+    if (a.data.year !== b.data.year) {
+        return a.data.year - b.data.year;
+    }
+    return b.data.month - a.data.month;
+});
 ---
 
 <Layout
@@ -36,11 +34,12 @@ const projects = [
             {
                 projects.map((project) => (
                     <ProjectCard
-                        title={project.title}
-                        year={project.year}
-                        description={project.description}
-                        tags={project.tags}
-                        href={project.href}
+                        title={project.data.title}
+                        year={project.data.year}
+                        month={project.data.month}
+                        description={project.data.description}
+                        tags={project.data.tags}
+                        href={project.data.href}
                     />
                 ))
             }

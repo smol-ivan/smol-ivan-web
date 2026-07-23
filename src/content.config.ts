@@ -14,6 +14,19 @@ const postsCollection = defineCollection({
     }),
 });
 
+const projectsCollection = defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+    schema: z.object({
+        title: z.string(),
+        year: z.number(),
+        month: z.number().min(1).max(12),
+        description: z.string(),
+        tags: z.array(z.string()).default([]),
+        href: z.string(),
+    }),
+});
+
 export const collections = {
     posts: postsCollection,
+    projects: projectsCollection,
 };
