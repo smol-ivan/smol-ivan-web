@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
     title: string;
@@ -39,15 +40,53 @@ const {
 
         <title>{title}</title>
 
+        <ClientRouter />
+
         <!-- Inline theme init to prevent FOUC -->
         <script is:inline>
-            (function () {
+            function applyThemeInline() {
                 const stored = localStorage.getItem("theme");
                 const prefersDark = window.matchMedia(
                     "(prefers-color-scheme: dark)",
                 ).matches;
                 if (stored === "dark" || (!stored && prefersDark)) {
                     document.documentElement.classList.add("dark");
+                } else {
+                    document.documentElement.classList.remove("dark");
+                }
+            }
+            applyThemeInline();
+            document.addEventListener("astro:after-swap", applyThemeInline);
+        </script>
+
+        <!-- Hide Material Symbols text until font loads -->
+        <style>
+            .material-symbols-outlined {
+                font-size: 0 !important;
+            }
+            .material-symbols-outlined.font-loaded {
+                font-size: revert !important;
+            }
+        </style>
+        <script is:inline>
+            (function () {
+                if (
+                    document.fonts &&
+                    document.fonts.check("1em Material Symbols Outlined")
+                ) {
+                    document
+                        .querySelectorAll(".material-symbols-outlined")
+                        .forEach(function (el) {
+                            el.classList.add("font-loaded");
+                        });
+                } else if (document.fonts) {
+                    document.fonts.ready.then(function () {
+                        document
+                            .querySelectorAll(".material-symbols-outlined")
+                            .forEach(function (el) {
+                                el.classList.add("font-loaded");
+                            });
+                    });
                 }
             })();
         </script>
@@ -57,6 +96,7 @@ const {
     >
         <!-- ── Header / Nav ────────────────────────────── -->
         <header
+            transition:persist
             class="w-full border-b border-border-low sticky top-0 bg-background/90 backdrop-blur-sm z-50 transition-colors duration-200"
         >
             <div
@@ -68,21 +108,23 @@ const {
                     <button
                         id="theme-toggle"
                         aria-label="Cambiar tema"
-                        class="hidden flex items-center p-1 bg-surface-container rounded-full cursor-pointer active:opacity-70 transition-all"
+                        class="flex items-center p-1 bg-surface-container rounded-full cursor-pointer active:opacity-70 transition-all"
                     >
-                        <div class="w-16 h-6 flex items-center relative px-1">
+                        <div class="w-12 h-6 flex items-center relative px-1">
                             <div
                                 id="toggle-thumb"
                                 class="w-4 h-4 bg-primary rounded-full transition-transform duration-300 translate-x-0"
                             >
                             </div>
                             <span
-                                class="material-symbols-outlined absolute left-1.5 text-[12px] select-none"
+                                id="light-icon"
+                                class="material-symbols-outlined absolute right-1 text-[12px] select-none transition-opacity"
                                 >light_mode</span
                             >
                             <span
-                                class="material-symbols-outlined absolute right-1.5 text-[12px] select-none opacity-0"
-                                id="dark-icon">dark_mode</span
+                                id="dark-icon"
+                                class="material-symbols-outlined absolute left-1 text-[12px] select-none opacity-0 transition-opacity"
+                                >dark_mode</span
                             >
                         </div>
                     </button>
@@ -102,19 +144,22 @@ const {
                 >
                     <a
                         href="/about"
-                        class={`text-text-muted hover:text-secondary transition-colors duration-200 ${activeNav === "about" ? "nav-link-active" : ""}`}
+                        class="nav-item text-text-muted hover:text-secondary transition-colors duration-200"
+                        data-nav="about"
                     >
                         About
                     </a>
                     <a
                         href="/projects"
-                        class={`text-text-muted hover:text-secondary transition-colors duration-200 ${activeNav === "projects" ? "nav-link-active" : ""}`}
+                        class="nav-item text-text-muted hover:text-secondary transition-colors duration-200"
+                        data-nav="projects"
                     >
                         Projects
                     </a>
                     <a
                         href="/posts"
-                        class={`text-text-muted hover:text-secondary transition-colors duration-200 ${activeNav === "posts" ? "nav-link-active" : ""}`}
+                        class="nav-item text-text-muted hover:text-secondary transition-colors duration-200"
+                        data-nav="posts"
                     >
                         Posts
                     </a>
@@ -127,6 +172,7 @@ const {
 
         <!-- ── Footer ─────────────────────────────────── -->
         <footer
+            transition:persist
             class="w-full border-t border-border-low sticky bottom-0 bg-background transition-colors duration-200"
         >
             <div
@@ -174,31 +220,89 @@ const {
     </body>
 </html>
 
-<script>
+<script is:inline>
     // ── Theme Toggle ─────────────────────────────────────
-    const btn = document.getElementById("theme-toggle")!;
-    const thumb = document.getElementById("toggle-thumb")!;
-    const darkIcon = document.getElementById("dark-icon")!;
-    const html = document.documentElement;
+    function initThemeToggle() {
+        var btn = document.getElementById("theme-toggle");
+        var thumb = document.getElementById("toggle-thumb");
+        var darkIcon = document.getElementById("dark-icon");
+        var lightIcon = document.getElementById("light-icon");
+        var html = document.documentElement;
 
-    function applyTheme(dark: boolean) {
-        if (dark) {
-            html.classList.add("dark");
-            thumb.style.transform = "translateX(1.5rem)";
-            darkIcon.style.opacity = "1";
-        } else {
-            html.classList.remove("dark");
-            thumb.style.transform = "translateX(0)";
-            darkIcon.style.opacity = "0";
+        if (!btn || !thumb || !darkIcon || !lightIcon) return;
+
+        function applyTheme(dark) {
+            if (dark) {
+                html.classList.add("dark");
+                thumb.style.transform = "translateX(1.5rem)";
+                darkIcon.style.opacity = "1";
+                lightIcon.style.opacity = "0";
+            } else {
+                html.classList.remove("dark");
+                thumb.style.transform = "translateX(0)";
+                darkIcon.style.opacity = "0";
+                lightIcon.style.opacity = "1";
+            }
         }
+
+        // Initialize from current state
+        applyTheme(html.classList.contains("dark"));
+
+        // Remove old listener to avoid duplicates (since we use is:inline)
+        var newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener("click", function () {
+            var isDark = html.classList.contains("dark");
+            applyTheme(!isDark);
+            localStorage.setItem("theme", isDark ? "light" : "dark");
+        });
+
+        // Re-assign references after cloning
+        thumb =
+            newBtn.querySelector("#toggle-thumb") ||
+            document.getElementById("toggle-thumb");
+        darkIcon =
+            newBtn.querySelector("#dark-icon") ||
+            document.getElementById("dark-icon");
+        lightIcon =
+            newBtn.querySelector("#light-icon") ||
+            document.getElementById("light-icon");
     }
 
-    // Initialize from storage
-    applyTheme(html.classList.contains("dark"));
+    // Run on initial load
+    initThemeToggle();
 
-    btn.addEventListener("click", () => {
-        const isDark = html.classList.contains("dark");
-        applyTheme(!isDark);
-        localStorage.setItem("theme", isDark ? "light" : "dark");
+    // Run again after View Transitions swap
+    document.addEventListener("astro:page-load", function () {
+        initThemeToggle();
+
+        // Update active nav link
+        var path = window.location.pathname;
+        var navItems = document.querySelectorAll(".nav-item");
+        navItems.forEach(function (item) {
+            item.classList.remove("nav-link-active");
+            var href = item.getAttribute("href");
+            if (path.startsWith(href)) {
+                item.classList.add("nav-link-active");
+            }
+        });
     });
+
+    // Also handle font loading for icons
+    function markFontsLoaded() {
+        document
+            .querySelectorAll(".material-symbols-outlined")
+            .forEach(function (el) {
+                el.classList.add("font-loaded");
+            });
+    }
+    if (
+        document.fonts &&
+        document.fonts.check("1em Material Symbols Outlined")
+    ) {
+        markFontsLoaded();
+    } else if (document.fonts) {
+        document.fonts.ready.then(markFontsLoaded);
+    }
 </script>
