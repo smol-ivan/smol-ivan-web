@@ -49,9 +49,7 @@ jobs:
                     -f Dockerfile .
 
     pr_agent_job:
-        if: |
-            github.event.sender.type != 'Bot' &&
-            (always() && (needs.validate-docker.result == 'success' || github.event_name == 'issue_comment'))
+        if: ${{ github.actor != 'dependabot[bot]' }}
         runs-on: ubuntu-latest
         permissions:
             issues: write
