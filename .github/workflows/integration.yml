@@ -7,10 +7,8 @@ on:
         types: [opened, reopened, ready_for_review, synchronize]
 
 jobs:
-    # Validaciones estaticas
     validate-astro:
         runs-on: ubuntu-latest
-
         steps:
             - name: Code checkout
               uses: actions/checkout@v4
@@ -33,7 +31,6 @@ jobs:
     validate-docker:
         runs-on: ubuntu-latest
         needs: validate-astro
-
         steps:
             - name: Code checkout
               uses: actions/checkout@v4
@@ -43,3 +40,21 @@ jobs:
                   docker build \
                     -t smol-ivan-web:test \
                     -f Dockerfile .
+
+    pr_agent_job:
+        needs: validate-docker
+        runs-on: ubuntu-latest
+        permissions:
+            issues: write
+            pull-requests: write
+            contents: write
+        steps:
+            - name: PR Agent action step
+              uses: the-pr-agent/pr-agent@main
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  OPENAI_KEY: ${{ secrets.GEMINI_API_KEY }}
+                  CONFIG.MODEL: "gemini/gemini-2.5-flash"
+                  github_action_config.auto_review: "true"
+                  github_action_config.auto_describe: "true"
+                  github_action_config.auto_improve: "true"
