@@ -5,13 +5,10 @@ on:
         branches:
             - main
         types: [opened, reopened, ready_for_review, synchronize]
-    issue_comment:
-        types: [created]
 
 jobs:
     # Validaciones estaticas
     validate-astro:
-        if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
 
         steps:
@@ -34,7 +31,6 @@ jobs:
               run: npm run check
 
     validate-docker:
-        if: github.event_name == 'pull_request'
         runs-on: ubuntu-latest
         needs: validate-astro
 
@@ -47,24 +43,3 @@ jobs:
                   docker build \
                     -t smol-ivan-web:test \
                     -f Dockerfile .
-
-    pr_agent_job:
-        if: |
-            github.actor != 'dependabot[bot]' &&
-            (github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/'))
-        runs-on: ubuntu-latest
-        permissions:
-            issues: write
-            pull-requests: write
-            contents: write
-        steps:
-            - name: PR Agent action step
-              uses: the-pr-agent/pr-agent@main
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  config.model: "gemini/gemini-2.5-flash"
-                  config.fallback_models: '["gemini/gemini-1.5-flash"]'
-                  GOOGLE_AI_STUDIO.GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-                  github_action_config.auto_review: "true"
-                  github_action_config.auto_describe: "true"
-                  github_action_config.auto_improve: "true"

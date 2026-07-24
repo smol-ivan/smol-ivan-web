@@ -1,0 +1,21 @@
+name: PR Agent Comments
+
+on:
+    issue_comment:
+        types: [created]
+
+jobs:
+    pr_agent_comments_job:
+        if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '/') }}
+        runs-on: ubuntu-latest
+        permissions:
+            issues: write
+            pull-requests: write
+            contents: write
+        steps:
+            - name: PR Agent comment step
+              uses: the-pr-agent/pr-agent@main
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  OPENAI_KEY: ${{ secrets.GEMINI_API_KEY }}
+                  CONFIG.MODEL: "gemini/gemini-2.5-flash"
