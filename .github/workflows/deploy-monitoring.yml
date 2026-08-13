@@ -1,0 +1,49 @@
+name: Deploy Monitoring Stack (Kuma + Umami)
+
+# Manual only: this stack changes rarely, so it doesn't need to run on
+# every push to main like the main site's CD pipeline does.
+on:
+    workflow_dispatch:
+
+jobs:
+    deploy-monitoring:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v4
+
+            - name: Copy monitoring compose file to EC2
+              uses: appleboy/scp-action@v0.1.7
+              with:
+                  host: ${{ secrets.EC2_HOST }}
+                  username: admin
+                  key: ${{ secrets.EC2_SSH_KEY }}
+                  source: "docker-compose.monitoring.yml"
+                  target: "/home/admin/app"
+
+            - name: Deploy monitoring stack via SSH
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.EC2_HOST }}
+                  username: admin
+                  key: ${{ secrets.EC2_SSH_KEY }}
+                  envs: UMAMI_DB_PASSWORD,UMAMI_APP_SECRET
+                  script: |
+                      cd /home/admin/app
+
+                      # Update the .env file with monitoring-specific secrets,
+                      # keeping any keys already set by the main deploy pipeline.
+                      touch .env
+                      grep -v -E '^(UMAMI_DB_PASSWORD|UMAMI_APP_SECRET)=' .env > .env.tmp || true
+                      mv .env.tmp .env
+                      cat >> .env <<EOF
+                      UMAMI_DB_PASSWORD=${{ secrets.UMAMI_DB_PASSWORD }}
+                      UMAMI_APP_SECRET=${{ secrets.UMAMI_APP_SECRET }}
+                      EOF
+
+                      # 'edge' network must already exist (created by the main
+                      # docker-compose.yml the first time it's brought up).
+                      docker compose -f docker-compose.monitoring.yml pull
+                      docker compose -f docker-compose.monitoring.yml up -d
+
+                      docker image prune -af --filter "until=72h"
