@@ -8,8 +8,8 @@ build/
 # Ignore specific files
 config.local.js
 
-*.html
-*.json
-*.css
-*.md
+# *.html
+# *.json
+# *.css
+# *.md
 
