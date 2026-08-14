@@ -11,6 +11,9 @@ importers:
       '@astrojs/check':
         specifier: ^0.9.9
         version: 0.9.10(prettier-plugin-astro@0.14.1)(prettier@3.9.6)(typescript@6.0.3)
+      '@fontsource/maple-mono':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@iconify-json/akar-icons':
         specifier: ^1.2.7
         version: 1.2.7
@@ -444,6 +447,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/maple-mono@5.3.0':
+    resolution: {integrity: sha512-8N3FVDWphO/971tZIig9D558j9jf09fWYIXFjgv7DKJEvDjtgfATx1ScWHdTCsf+tufFS5M1bAa4AumVBKPhSQ==}
 
   '@fsouza/prettierd@0.28.0':
     resolution: {integrity: sha512-XkRkIp2en2Lcm7Qc+zqNm8ClI3RArLCBNG2A4M2xzTw43S/vYSEDQ4NcfW+6ZsUyQeoVqrFcMU5H1yAKCVkv6A==}
@@ -2942,6 +2948,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.2':
     optional: true
+
+  '@fontsource/maple-mono@5.3.0': {}
 
   '@fsouza/prettierd@0.28.0(typescript@6.0.3)':
     dependencies:

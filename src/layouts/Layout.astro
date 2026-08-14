@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { title, description = "Ivan's site - Software Engineer" } = Astro.props;
+
+import "@fontsource/maple-mono";
 ---
 
 <!doctype html>
@@ -26,14 +28,6 @@ const { title, description = "Ivan's site - Software Engineer" } = Astro.props;
             defer
             src="https://analytics.smol-ivan.xyz/script.js"
             data-website-id="4ded665d-6bed-4e40-8794-be3ca19ba351"></script>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-            rel="stylesheet"
-        />
 
         <title>{title}</title>
 
