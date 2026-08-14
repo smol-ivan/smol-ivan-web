@@ -1,3 +1,8 @@
+# Network can be attached as external by docker-compose.monitoring.yml
+networks:
+    edge:
+        name: edge
+
 services:
     smol-ivan-web:
         image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
