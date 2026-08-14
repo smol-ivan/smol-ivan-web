@@ -61,12 +61,11 @@ EXPOSE 80
 
 First of all, I integrate a basic pipeline for integration that checks the basic of an astro proyect, then build the docker, once the pull request is approved and merged, a second pipeline executes the automated deployment. It builds the stable image, pushes it to Amazon ECR, connects to the VPS over an isolated SSH connection, pulls the newest container layer, and reloads Nginx dynamically.
 
-
 - Automated state synchronization on merge.
 - Secure certificate routing managed on the VPS via Let's Encrypt.
 - Zero software requirements on the server except Docker and an SSH daemon.
 
-Pretty insane 
+Pretty insane
 
 ```mermaid
 flowchart LR
