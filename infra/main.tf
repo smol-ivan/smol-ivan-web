@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = "~> 6.0"
     }
   }
 }
@@ -39,4 +39,5 @@ module "compute" {
   security_group_id      = module.network.security_group_id
   instance_profile_name  = module.iam.instance_profile_name
   swap_size_gb           = var.swap_size_gb
+  ami_id                 = var.ami_id
 }

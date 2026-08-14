@@ -2,7 +2,7 @@ resource "aws_default_vpc" "default" {}
 
 resource "aws_security_group" "web_sg" {
   name        = "${var.project_name}-web-sg"
-  description = "Allow SSH (22), HTTP (80) and HTTPS (443)"
+  description = "Allow SSH (22), HTTP (80) y HTTPS (443)"
   vpc_id      = aws_default_vpc.default.id
 
   ingress {

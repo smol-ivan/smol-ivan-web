@@ -3,6 +3,12 @@ variable "project_name" {
   description = "Project name used as a prefix for resource names"
 }
 
+variable "ami_id" {
+  type        = string
+  description = "Pin the instance to a specific AMI ID. If null, falls back to the most recent Debian 13 AMI (only safe for brand-new instances)."
+  default     = null
+}
+
 variable "instance_type" {
   type        = string
   description = "EC2 instance type"

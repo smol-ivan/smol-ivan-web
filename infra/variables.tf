@@ -21,3 +21,9 @@ variable "swap_size_gb" {
   description = "Size in GB of the swap file created on the instance"
   default     = 2
 }
+
+variable "ami_id" {
+  type        = string
+  description = "Pin the instance to this AMI ID to avoid unwanted replacement. Set to the AMI currently in use."
+  default     = "ami-06a877a0bb8824880"
+}
