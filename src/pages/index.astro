@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout
@@ -28,7 +29,7 @@ import Layout from "../layouts/Layout.astro";
             <!-- Social Links -->
             <div class="flex justify-center pt-stack-sm">
                 <div
-                    class="flex items-center gap-6 px-4 py-4 border-2 border-t-mauve-950 rounded-2xl bg-surface-container-lowest"
+                    class="flex items-center gap-6 px-4 py-4 border-[3px] rounded-2xl bg-surface-container-lowest"
                 >
                     <a
                         href="/ivan_gordillo_cv.pdf"
@@ -37,20 +38,7 @@ import Layout from "../layouts/Layout.astro";
                         class="text-primary hover:text-secondary transition-colors duration-200"
                         aria-label="Descargar CV"
                     >
-                        <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><path
-                                d="M4 4v16a2 2 0 002 2h12a2 2 0 002-2V8.342a2 2 0 00-.602-1.43l-4.44-4.342A2 2 0 0013.56 2H6A2 2 0 004 4z"
-                            ></path><path d="M9 13h6"></path><path d="M9 17h3"
-                            ></path><path d="M14 2v4a2 2 0 002 2h4"></path></svg
-                        >
+                        <Icon name="akar-icons:file" class="size-6" />
                     </a>
                     <a
                         href="mailto:gordillosolis@icloud.com"
@@ -58,20 +46,7 @@ import Layout from "../layouts/Layout.astro";
                         class="text-primary hover:text-secondary transition-colors duration-200"
                         aria-label="Enviar correo"
                     >
-                        <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 21"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><path
-                                d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                            ></path><polyline points="22,6 12,13 2,6"
-                            ></polyline></svg
-                        >
+                        <Icon name="majesticons:mail-line" class="size-7" />
                     </a>
                     <a
                         href="https://github.com/smol-ivan"
@@ -81,20 +56,7 @@ import Layout from "../layouts/Layout.astro";
                         class="text-primary hover:text-secondary transition-colors duration-200"
                         aria-label="GitHub"
                     >
-                        <!-- GITHUB ICON -->
-                        <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><path
-                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"
-                            ></path></svg
-                        >
+                        <Icon name="eva:github-outline" class="size-7" />
                     </a>
                     <a
                         href="https://linkedin.com/in/smol-ivan"
@@ -104,33 +66,8 @@ import Layout from "../layouts/Layout.astro";
                         class="text-primary hover:text-secondary transition-colors duration-200"
                         aria-label="LinkedIn"
                     >
-                        <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><path
-                                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"
-                            ></path><rect x="2" y="9" width="4" height="12"
-                            ></rect><circle cx="4" cy="4" r="2"></circle></svg
-                        >
+                        <Icon name="meteor-icons:linkedin" class="size-6" />
                     </a>
-                    <!-- <a
-                        href="https://x.com"
-                        target="_blank"
-                        rel="noopener"
-                        title="X / Twitter"
-                        class="text-primary hover:text-secondary transition-colors duration-200"
-                        aria-label="X / Twitter"
-                    >
-                        <span class="material-symbols-outlined text-[28px]"
-                            >close</span
-                        >
-                    </a> -->
                 </div>
             </div>
 
