@@ -5,7 +5,7 @@ build/
 
 .prettierrc
 config.local.js
-vscode/
+.vscode/
 astro.config.mjs
 pnpm-lock.yml
 
