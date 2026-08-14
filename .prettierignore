@@ -7,5 +7,5 @@ build/
 config.local.js
 .vscode/
 astro.config.mjs
-pnpm-lock.yml
+pnpm-lock.yaml
 
