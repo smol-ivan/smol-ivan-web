@@ -1,200 +1,203 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── Colors ─────────────────────────────────────── */
-  --color-background:                #f9f9f9;
-  --color-background-dark:           #121212;
-  --color-background-light:          #ffffff;
+    /* ── Colors ─────────────────────────────────────── */
+    --color-background: #f9f9f9;
+    --color-background-dark: #121212;
+    --color-background-light: #ffffff;
 
-  --color-surface:                   #f9f9f9;
-  --color-surface-dim:               #dadada;
-  --color-surface-bright:            #f9f9f9;
-  --color-surface-variant:           #e2e2e2;
-  --color-surface-container-lowest:  #ffffff;
-  --color-surface-container-low:     #f3f3f3;
-  --color-surface-container:         #eeeeee;
-  --color-surface-container-high:    #e8e8e8;
-  --color-surface-container-highest: #e2e2e2;
+    --color-surface: #f9f9f9;
+    --color-surface-dim: #dadada;
+    --color-surface-bright: #f9f9f9;
+    --color-surface-variant: #e2e2e2;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #f3f3f3;
+    --color-surface-container: #eeeeee;
+    --color-surface-container-high: #e8e8e8;
+    --color-surface-container-highest: #e2e2e2;
 
-  --color-on-surface:                #1b1b1b;
-  --color-on-surface-variant:        #4c4546;
-  --color-on-background:             #1b1b1b;
+    --color-on-surface: #1b1b1b;
+    --color-on-surface-variant: #4c4546;
+    --color-on-background: #1b1b1b;
 
-  --color-primary:                   #000000;
-  --color-on-primary:                #ffffff;
-  --color-primary-container:         #1b1b1b;
-  --color-on-primary-container:      #848484;
-  --color-primary-fixed:             #e2e2e2;
-  --color-primary-fixed-dim:         #c6c6c6;
-  --color-on-primary-fixed:          #1b1b1b;
-  --color-on-primary-fixed-variant:  #474747;
-  --color-inverse-primary:           #c6c6c6;
+    --color-primary: #000000;
+    --color-on-primary: #ffffff;
+    --color-primary-container: #1b1b1b;
+    --color-on-primary-container: #848484;
+    --color-primary-fixed: #e2e2e2;
+    --color-primary-fixed-dim: #c6c6c6;
+    --color-on-primary-fixed: #1b1b1b;
+    --color-on-primary-fixed-variant: #474747;
+    --color-inverse-primary: #c6c6c6;
 
-  --color-secondary:                 #6b38d4;
-  --color-on-secondary:              #ffffff;
-  --color-secondary-container:       #8455ef;
-  --color-on-secondary-container:    #fffbff;
-  --color-secondary-fixed:           #e9ddff;
-  --color-secondary-fixed-dim:       #d0bcff;
-  --color-on-secondary-fixed:        #23005c;
-  --color-on-secondary-fixed-variant:#5516be;
+    --color-secondary: #6b38d4;
+    --color-on-secondary: #ffffff;
+    --color-secondary-container: #8455ef;
+    --color-on-secondary-container: #fffbff;
+    --color-secondary-fixed: #e9ddff;
+    --color-secondary-fixed-dim: #d0bcff;
+    --color-on-secondary-fixed: #23005c;
+    --color-on-secondary-fixed-variant: #5516be;
 
-  --color-tertiary:                  #000000;
-  --color-on-tertiary:               #ffffff;
-  --color-tertiary-container:        #1b1b1b;
-  --color-on-tertiary-container:     #848484;
-  --color-tertiary-fixed:            #e2e2e2;
-  --color-tertiary-fixed-dim:        #c6c6c6;
-  --color-on-tertiary-fixed:         #1b1b1b;
-  --color-on-tertiary-fixed-variant: #474747;
+    --color-tertiary: #000000;
+    --color-on-tertiary: #ffffff;
+    --color-tertiary-container: #1b1b1b;
+    --color-on-tertiary-container: #848484;
+    --color-tertiary-fixed: #e2e2e2;
+    --color-tertiary-fixed-dim: #c6c6c6;
+    --color-on-tertiary-fixed: #1b1b1b;
+    --color-on-tertiary-fixed-variant: #474747;
 
-  --color-error:                     #ba1a1a;
-  --color-on-error:                  #ffffff;
-  --color-error-container:           #ffdad6;
-  --color-on-error-container:        #93000a;
+    --color-error: #ba1a1a;
+    --color-on-error: #ffffff;
+    --color-error-container: #ffdad6;
+    --color-on-error-container: #93000a;
 
-  --color-outline:                   #7e7576;
-  --color-outline-variant:           #cfc4c5;
-  --color-surface-tint:              #5e5e5e;
-  --color-inverse-surface:           #303030;
-  --color-inverse-on-surface:        #f1f1f1;
+    --color-outline: #7e7576;
+    --color-outline-variant: #cfc4c5;
+    --color-surface-tint: #5e5e5e;
+    --color-inverse-surface: #303030;
+    --color-inverse-on-surface: #f1f1f1;
 
-  --color-text-muted:                #666666;
-  --color-border-low:                #E5E7EB;
-  --color-border-high:               #2D2D2D;
+    --color-text-muted: #666666;
+    --color-border-low: #e5e7eb;
+    --color-border-high: #2d2d2d;
 
-  /* ── Border Radius ───────────────────────────────── */
-  --radius-DEFAULT: 0.125rem;
-  --radius-lg:      0.25rem;
-  --radius-xl:      0.5rem;
-  --radius-full:    0.75rem;
+    /* ── Border Radius ───────────────────────────────── */
+    --radius-DEFAULT: 0.125rem;
+    --radius-lg: 0.25rem;
+    --radius-xl: 0.5rem;
+    --radius-full: 0.75rem;
 
-  /* ── Spacing ─────────────────────────────────────── */
-  --spacing-container-max: 720px;
-  --spacing-stack-sm:      0.5rem;
-  --spacing-stack-md:      1.5rem;
-  --spacing-stack-lg:      4rem;
-  --spacing-margin-page:   2rem;
-  --spacing-gutter:        1.5rem;
+    /* ── Spacing ─────────────────────────────────────── */
+    --spacing-container-max: 720px;
+    --spacing-stack-sm: 0.5rem;
+    --spacing-stack-md: 1.5rem;
+    --spacing-stack-lg: 4rem;
+    --spacing-margin-page: 2rem;
+    --spacing-gutter: 1.5rem;
 
-  /* ── Font Families ───────────────────────────────── */
-  --font-family-mono: "JetBrains Mono", monospace;
+    /* ── Font Families ───────────────────────────────── */
+    --font-family-mono: "Maple Mono", monospace;
 
-  /* ── Font Sizes ──────────────────────────────────── */
-  --font-size-headline-lg:        32px;
-  --font-size-headline-lg-mobile: 24px;
-  --font-size-headline-md:        20px;
-  --font-size-body-lg:            16px;
-  --font-size-body-md:            14px;
-  --font-size-label-caps:         12px;
-  --font-size-code-snippet:       13px;
+    /* ── Font Sizes ──────────────────────────────────── */
+    --font-size-headline-lg: 32px;
+    --font-size-headline-lg-mobile: 24px;
+    --font-size-headline-md: 20px;
+    --font-size-body-lg: 16px;
+    --font-size-body-md: 14px;
+    --font-size-label-caps: 12px;
+    --font-size-code-snippet: 13px;
 }
 
 /* ── Base ──────────────────────────────────────────── */
 @layer base {
-  html {
-    font-family: "JetBrains Mono", monospace;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    html {
+        font-family: "Maple Mono", monospace;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-  /* Dark mode palette overrides */
-  html.dark {
-    --color-background:    #121212;
-    --color-surface:       #1e1e1e;
-    --color-on-background: #e8e8e8;
-    --color-on-surface:    #e8e8e8;
-    --color-text-muted:    #a1a1aa;
-    --color-border-low:    #2D2D2D;
-    --color-surface-container-lowest: #1a1a1a;
-    --color-surface-container-low:    #1e1e1e;
-    --color-surface-container:        #252525;
-    --color-surface-container-high:   #2a2a2a;
-    --color-surface-container-highest:#303030;
-    --color-on-surface-variant:       #a1a1aa;
-    --color-primary:       #e8e8e8;
-    --color-on-primary:    #121212;
-  }
+    /* Dark mode palette overrides */
+    html.dark {
+        --color-background: #121212;
+        --color-surface: #1e1e1e;
+        --color-on-background: #e8e8e8;
+        --color-on-surface: #e8e8e8;
+        --color-text-muted: #a1a1aa;
+        --color-border-low: #2d2d2d;
+        --color-surface-container-lowest: #1a1a1a;
+        --color-surface-container-low: #1e1e1e;
+        --color-surface-container: #252525;
+        --color-surface-container-high: #2a2a2a;
+        --color-surface-container-highest: #303030;
+        --color-on-surface-variant: #a1a1aa;
+        --color-primary: #e8e8e8;
+        --color-on-primary: #121212;
+    }
 }
 
 /* ── Components ────────────────────────────────────── */
 @layer components {
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1;
-  }
+    /* Nav link active state */
+    .material-symbols-outlined {
+        font-variation-settings:
+            "FILL" 0,
+            "wght" 400,
+            "GRAD" 0,
+            "opsz" 24;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+    }
+    .nav-link-active {
+        font-weight: 700;
+        border-bottom: 2px solid var(--color-primary);
+        color: var(--color-primary);
+    }
 
-  /* Nav link active state */
-  .nav-link-active {
-    font-weight: 700;
-    border-bottom: 2px solid var(--color-primary);
-    color: var(--color-primary);
-  }
+    /* Post item arrow hover */
+    .post-item:hover .post-arrow {
+        transform: translateX(4px);
+        color: var(--color-secondary);
+    }
 
-  /* Post item arrow hover */
-  .post-item:hover .post-arrow {
-    transform: translateX(4px);
-    color: var(--color-secondary);
-  }
-
-  /* Hover invert button */
-  .hover-invert:hover {
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
-  }
+    /* Hover invert button */
+    .hover-invert:hover {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+    }
 }
 
 /* ── Utilities ─────────────────────────────────────── */
 @layer utilities {
-  .font-mono-system {
-    font-family: "JetBrains Mono", monospace;
-  }
+    .font-mono-system {
+        font-family: "Maple Mono", monospace;
+    }
 
-  .text-headline-lg {
-    font-size: var(--font-size-headline-lg);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    font-weight: 700;
-  }
+    .text-headline-lg {
+        font-size: var(--font-size-headline-lg);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        font-weight: 700;
+    }
 
-  .text-headline-lg-mobile {
-    font-size: var(--font-size-headline-lg-mobile);
-    line-height: 1.2;
-    font-weight: 700;
-  }
+    .text-headline-lg-mobile {
+        font-size: var(--font-size-headline-lg-mobile);
+        line-height: 1.2;
+        font-weight: 700;
+    }
 
-  .text-headline-md {
-    font-size: var(--font-size-headline-md);
-    line-height: 1.4;
-    font-weight: 600;
-  }
+    .text-headline-md {
+        font-size: var(--font-size-headline-md);
+        line-height: 1.4;
+        font-weight: 600;
+    }
 
-  .text-body-lg {
-    font-size: var(--font-size-body-lg);
-    line-height: 1.6;
-    font-weight: 400;
-  }
+    .text-body-lg {
+        font-size: var(--font-size-body-lg);
+        line-height: 1.6;
+        font-weight: 400;
+    }
 
-  .text-body-md {
-    font-size: var(--font-size-body-md);
-    line-height: 1.6;
-    font-weight: 400;
-  }
+    .text-body-md {
+        font-size: var(--font-size-body-md);
+        line-height: 1.6;
+        font-weight: 400;
+    }
 
-  .text-label-caps {
-    font-size: var(--font-size-label-caps);
-    line-height: 1.0;
-    letter-spacing: 0.1em;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
+    .text-label-caps {
+        font-size: var(--font-size-label-caps);
+        line-height: 1;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
 
-  .text-code-snippet {
-    font-size: var(--font-size-code-snippet);
-    line-height: 1.5;
-    font-weight: 400;
-    font-family: "JetBrains Mono", monospace;
-  }
+    .text-code-snippet {
+        font-size: var(--font-size-code-snippet);
+        line-height: 1.5;
+        font-weight: 400;
+        font-family: "Maple Mono", monospace;
+    }
 }

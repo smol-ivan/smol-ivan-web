@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import { Icon } from "astro-icon/components";
 
 interface Props {
     title: string;
@@ -8,11 +9,9 @@ interface Props {
     activeNav?: "about" | "projects" | "posts";
 }
 
-const {
-    title,
-    description = "Ivan's site - Software Engineer",
-    activeNav,
-} = Astro.props;
+const { title, description = "Ivan's site - Software Engineer" } = Astro.props;
+
+import "@fontsource/maple-mono";
 ---
 
 <!doctype html>
@@ -25,18 +24,10 @@ const {
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="generator" content={Astro.generator} />
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-            rel="stylesheet"
-        />
+        <script
+            defer
+            src="https://analytics.smol-ivan.xyz/script.js"
+            data-website-id="4ded665d-6bed-4e40-8794-be3ca19ba351"></script>
 
         <title>{title}</title>
 
@@ -57,38 +48,6 @@ const {
             }
             applyThemeInline();
             document.addEventListener("astro:after-swap", applyThemeInline);
-        </script>
-
-        <!-- Hide Material Symbols text until font loads -->
-        <style>
-            .material-symbols-outlined {
-                font-size: 0 !important;
-            }
-            .material-symbols-outlined.font-loaded {
-                font-size: revert !important;
-            }
-        </style>
-        <script is:inline>
-            (function () {
-                if (
-                    document.fonts &&
-                    document.fonts.check("1em Material Symbols Outlined")
-                ) {
-                    document
-                        .querySelectorAll(".material-symbols-outlined")
-                        .forEach(function (el) {
-                            el.classList.add("font-loaded");
-                        });
-                } else if (document.fonts) {
-                    document.fonts.ready.then(function () {
-                        document
-                            .querySelectorAll(".material-symbols-outlined")
-                            .forEach(function (el) {
-                                el.classList.add("font-loaded");
-                            });
-                    });
-                }
-            })();
         </script>
     </head>
     <body
@@ -116,16 +75,16 @@ const {
                                 class="w-4 h-4 bg-primary rounded-full transition-transform duration-300 translate-x-0"
                             >
                             </div>
-                            <span
+                            <Icon
+                                name="material-symbols:light-mode-outline"
                                 id="light-icon"
-                                class="material-symbols-outlined absolute right-1 text-[12px] select-none transition-opacity"
-                                >light_mode</span
-                            >
-                            <span
+                                class="size-5 absolute right-1 select-none transition-opacity pointer-events-none stroke-current stroke-[0.5px]"
+                            />
+                            <Icon
+                                name="material-symbols:partly-cloudy-night-outline-rounded"
                                 id="dark-icon"
-                                class="material-symbols-outlined absolute left-1 text-[12px] select-none opacity-0 transition-opacity"
-                                >dark_mode</span
-                            >
+                                class="size-5 absolute left-1 select-none opacity-0 transition-opacity pointer-events-none stroke-current stroke-[0.5px]"
+                            />
                         </div>
                     </button>
 
@@ -195,13 +154,6 @@ const {
                         class="hover:text-secondary transition-colors duration-200"
                         >LinkedIn</a
                     >
-                    <!-- <a
-                        href="https://x.com"
-                        target="_blank"
-                        rel="noopener"
-                        class="hover:text-secondary transition-colors duration-200"
-                        >Twitter / X</a
-                    > -->
                     <a
                         href="mailto:gordillosolis@icloud.com"
                         class="hover:text-secondary transition-colors duration-200"
@@ -209,7 +161,7 @@ const {
                     >
                 </div>
                 <p class="text-label-caps text-text-muted opacity-60">
-                    © 2025 Ivan Gordillo · Powered by <a
+                    © 2026 Ivan Gordillo · Powered by <a
                         href="https://astro.build"
                         class="underline hover:text-secondary transition-colors"
                         >Astro</a
@@ -288,21 +240,4 @@ const {
             }
         });
     });
-
-    // Also handle font loading for icons
-    function markFontsLoaded() {
-        document
-            .querySelectorAll(".material-symbols-outlined")
-            .forEach(function (el) {
-                el.classList.add("font-loaded");
-            });
-    }
-    if (
-        document.fonts &&
-        document.fonts.check("1em Material Symbols Outlined")
-    ) {
-        markFontsLoaded();
-    } else if (document.fonts) {
-        document.fonts.ready.then(markFontsLoaded);
-    }
 </script>
