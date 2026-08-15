@@ -52,3 +52,4 @@ override.tf.json
 *_override.tf.json
 .terraform.rc
 terraform.rc
+/.node-version

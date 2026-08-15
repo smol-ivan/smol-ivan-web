@@ -21,6 +21,8 @@ const formatter = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
 });
 const formattedDate = formatter.format(post.data.date);
+
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout
@@ -37,8 +39,10 @@ const formattedDate = formatter.format(post.data.date);
                 class="group flex items-center gap-2 text-body-md text-text-muted hover:text-primary transition-colors duration-200 w-fit"
                 href="/posts"
             >
-                <span class="material-symbols-outlined text-sm">arrow_back</span
-                >
+                <Icon
+                    name="material-symbols:arrow-back-rounded"
+                    class="size-6"
+                />
                 <span>Back to Posts</span>
             </a>
         </div>
@@ -55,19 +59,17 @@ const formattedDate = formatter.format(post.data.date);
                     class="flex flex-wrap items-center gap-x-4 gap-y-2 text-label-caps text-text-muted border-b border-border-low pb-stack-sm"
                 >
                     <span class="flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]"
-                            >calendar_today</span
-                        >
+                        <Icon name="majesticons:calendar" class="size-5" />
                         {formattedDate}
                     </span>
 
                     <span class="flex items-center gap-1">
-                        <span class="material-symbols-outlined text-[14px]"
-                            >schedule</span
-                        >
+                        <Icon
+                            name="material-symbols:schedule-outline-rounded"
+                            class="size-5"
+                        />
                         {post.data.readingTime}
                     </span>
-
                     {
                         post.data.tags && post.data.tags.length > 0 && (
                             <div class="flex gap-2">
@@ -108,14 +110,14 @@ const formattedDate = formatter.format(post.data.date);
             >
                 <div class="flex gap-stack-sm">
                     <div
-                        class="w-10 h-10 border border-border-low flex items-center justify-center hover:text-secondary hover:border-secondary transition-all cursor-pointer rounded-lg"
+                        class="hidden w-10 h-10 border border-border-low flex items-center justify-center hover:text-secondary hover:border-secondary transition-all cursor-pointer rounded-lg"
                     >
                         <span class="material-symbols-outlined text-text-muted"
                             >share</span
                         >
                     </div>
                     <div
-                        class="w-10 h-10 border border-border-low flex items-center justify-center hover:text-secondary hover:border-secondary transition-all cursor-pointer rounded-lg"
+                        class="hidden w-10 h-10 border border-border-low flex items-center justify-center hover:text-secondary hover:border-secondary transition-all cursor-pointer rounded-lg"
                     >
                         <span class="material-symbols-outlined text-text-muted"
                             >bookmark</span
@@ -127,7 +129,13 @@ const formattedDate = formatter.format(post.data.date);
                         class="text-label-caps text-text-muted hover:text-primary underline underline-offset-4 transition-colors"
                         href="/posts"
                     >
-                        All Posts →
+                        <div class="flex gap-1 justify-center items-center">
+                            All Posts
+                            <Icon
+                                name="material-symbols:arrow-forward-rounded"
+                                class="size-4"
+                            />
+                        </div>
                     </a>
                 </div>
             </footer>
