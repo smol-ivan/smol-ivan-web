@@ -40,6 +40,8 @@ const postGroups = Object.keys(postsByYear)
             href: `/posts/${p.id}`,
         })),
     }));
+
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout
@@ -67,7 +69,7 @@ const postGroups = Object.keys(postsByYear)
         <div
             class="mb-10 flex items-center gap-2 text-text-muted border-b border-border-low pb-4"
         >
-            <span class="material-symbols-outlined text-[18px]">search</span>
+            <Icon name="mingcute:search-3-line" class="size-5" />
             <span class="text-code-snippet">FILTER BY TAG: [ALL]</span>
         </div>
 
