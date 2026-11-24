@@ -53,3 +53,6 @@ override.tf.json
 .terraform.rc
 terraform.rc
 /.node-version
+
+# nix / direnv
+.direnv/
