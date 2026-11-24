@@ -53,3 +53,5 @@ override.tf.json
 .terraform.rc
 terraform.rc
 /.node-version
+/.direnv
+/.envrc
